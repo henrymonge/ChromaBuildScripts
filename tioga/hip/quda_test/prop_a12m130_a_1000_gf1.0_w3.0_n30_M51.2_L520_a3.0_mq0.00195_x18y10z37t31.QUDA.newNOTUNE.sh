@@ -42,6 +42,7 @@ stdout=prop_a12m130_a_1000_gf1.0_w3.0_n30_M51.2_L520_a3.0_x18y10z37t31.quda.new.
 echo "START  "$(date "+%Y-%m-%dT%H:%M")
 
 #####MODIFY FOR YOUR SYSTEM#####
-jsrun --nrs 2 -r1 -a4 -g4 -c4 -l gpu-cpu -b packed:smt:4 $PROG $ARGS > $stdout 2>&1
+#jsrun --nrs 2 -r1 -a4 -g4 -c4 -l gpu-cpu -b packed:smt:4 $PROG $ARGS > $stdout 2>&1  --this line is for lassen--
+srun -n 16 -N 2 --unbuffered --ntasks-per-node=8 --cpus-per-task=1 $PROG $ARGS > $stdout 2>&1 #This is what would work on frontier
 
 echo "FINISH JOB "$(date "+%Y-%m-%dT%H:%M")
