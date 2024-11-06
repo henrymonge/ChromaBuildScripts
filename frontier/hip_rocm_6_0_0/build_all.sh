@@ -1,3 +1,4 @@
+#!/bin/bash
 source ./env.sh
 #
 # Seemingly QDPXX finds an installed one so no need to build this
