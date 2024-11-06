@@ -22,7 +22,7 @@ LLVM_VERSION=17
 QDP=qdpxx
 QMP=qmp
 QUDA=quda
-QUDA_SRC=quda_rocm6_6_0
+QUDA_SRC=quda
 
 echo "Using/Setting up stack: ${CHROMA} ${QDP} ${QMP} ${QUDA}  Srcs: ${CHROMA_SRC} ${QUDA_SRC}"
 
