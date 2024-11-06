@@ -4,7 +4,8 @@ module load rocm/6.0.0
 module load craype-accel-amd-gfx90a
 module load cray-mpich/8.1.28
 module load cmake
-#module load ninja
+module load gcc-mixed/12.2.0
+module load ninja
 module list
 
 export MPICH_ROOT=/opt/cray/pe/mpich/8.1.28
@@ -23,10 +24,20 @@ QDP=qdpxx
 QMP=qmp
 QUDA=quda
 QUDA_SRC=quda
+H5=ON
+HDF5=hdf5-1.10.9
+LALIBE=lalibe
+LALIBE_SRC=lalibe
 
+echo "Stack ${1}"
+if [ "$H5" = "ON" ]; then
+  CHROMA=chroma_h5
+  QDP=qdpxx_h5
+  QDP_SRC=qdpxx
+  QUDA=quda
+  LALIBE=lalibe_h5
+fi
 echo "Using/Setting up stack: ${CHROMA} ${QDP} ${QMP} ${QUDA}  Srcs: ${CHROMA_SRC} ${QUDA_SRC}"
-
-
 
 CC=hipcc
 CXX=hipcc
@@ -46,8 +57,7 @@ export PK_BUILD_TYPE="Release"
 
 export PATH=${ROCM_PATH}/bin:${ROCM_PATH}/llvm/bin:${PATH}
     
-export LD_LIBRARY_PATH=${INSTALLROOT}/${CHROMA}/lib:${INSTALLROOT}/${QUDA}/lib:${INSTALLROOT}/${QDP}/lib:${INSTALLROOT}/${QMP}/lib:${ROCM_PATH}/lib:${ROCM_PATH}/llvm/lib:${MPICH_DIR}/lib:${GTL_ROOT}:/opt/cray/libfabric/1.15.0.0/lib64:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH=${INSTALLROOT}/hdf5-1.10.9/lib:${INSTALLROOT}/${CHROMA}/lib:${INSTALLROOT}/${QUDA}/lib:${INSTALLROOT}/${QDP}/lib:${INSTALLROOT}/${QMP}/lib:${ROCM_PATH}/lib:${ROCM_PATH}/llvm/lib:${MPICH_DIR}/lib:${GTL_ROOT}:/opt/cray/libfabric/1.15.0.0/lib64:${LD_LIBRARY_PATH}
 
 
-export LIBRARY_PATH=${ROCM_PATH}/include:${LIBRARY_PATH}
-
+export LIBRARY_PATH=${ROCM_PATH}/include:${LIBRARY_PATH}:${INSTALLROOT}/hdf5-1.10.9/include

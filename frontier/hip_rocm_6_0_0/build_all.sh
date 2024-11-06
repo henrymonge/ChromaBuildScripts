@@ -5,7 +5,9 @@ source ./env.sh
 # ./build_libxml2.sh 
  
 ./build_qmp.sh
-./build_qdpxx.sh
 ./build_hdf5.sh
+./build_qdpxx.sh
+./build_qdpxx_h5.sh
 ./build_quda.sh
-./build_chroma.sh
+./build_chroma_h5.sh
+./build_lalibe_gpu.sh
