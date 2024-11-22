@@ -1,6 +1,11 @@
 source ./env.sh
 
-QUDA=quda
+PKG=${QUDA}
+
+pushd ${SRCROOT}/${PKG}
+COMMIT=`git rev-parse HEAD`
+echo "${PKG} commit ${COMMIT}"
+popd
 
 if [[ ! -d $SRCROOT ]]; then
     mkdir $SRCROOT
@@ -18,17 +23,17 @@ fi
 
 pushd ${BUILDROOT}
 
-if [ -d ./build_${QUDA} ];
+if [ -d ./build_${PKG} ];
 then
-  rm -rf ./build_${QUDA}
+  rm -rf ./build_${PKG}
 fi
 
-mkdir  ./build_${QUDA}
-cd ./build_${QUDA}
+mkdir  ./build_${PKG}
+cd ./build_${PKG}
 
 export QUDA_GPU_ARCH=${TARGET_GPU}
 
-cmake ${SRCROOT}/${QUDA_SRC} \
+cmake ${SRCROOT}/${PKG} \
         -G "Unix Makefiles" \
 	      -DQUDA_TARGET_TYPE="HIP" \
 			  -DQUDA_GPU_ARCH=${TARGET_GPU} \
@@ -61,7 +66,7 @@ cmake ${SRCROOT}/${QUDA_SRC} \
         -DQUDA_MULTIGRID=ON \
         -DQUDA_MAX_MULTI_BLAS_N=9 \
         -DQUDA_DOWNLOAD_EIGEN=ON \
-        -DCMAKE_INSTALL_PREFIX=${INSTALLROOT}/${QUDA} \
+        -DCMAKE_INSTALL_PREFIX=${INSTALLROOT}/${PKG} \
         -DCMAKE_BUILD_TYPE="DEVEL" \
         -DCMAKE_CXX_COMPILER=${CXX} \
         -DCMAKE_C_COMPILER=${CC} \
@@ -77,5 +82,12 @@ cmake ${SRCROOT}/${QUDA_SRC} \
 
 cmake --build . -j 32  -v
 cmake --install .
+
+if [ $? -eq 0 ]; then
+    echo "successful installation"
+    echo "${PKG} : ${COMMIT} ($(date))" > ${INSTALLROOT}/${PKG}/GIT_info.txt
+else
+    echo "failed installation"
+fi
 
 popd

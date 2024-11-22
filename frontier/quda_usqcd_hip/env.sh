@@ -17,7 +17,6 @@ export LD_LIBRARY_PATH=/sw/frontier/spack-envs/base/opt/linux-sles15-x86_64/gcc-
 QUDA=quda
 QMP=qmp
 QDP=qdpxx
-QUDA_SRC=quda
 
 CC=hipcc
 CXX=hipcc

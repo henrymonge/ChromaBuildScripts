@@ -1,10 +1,13 @@
 source ./env.sh
 
-pushd ${SRCROOT}/${QUDA_SRC}
+PKG=${QUDA}
 
-QUDA=quda_hasen
+pushd ${SRCROOT}/${PKG}
+COMMIT=`git rev-parse HEAD`
+echo "${PKG} commit ${COMMIT}"
+popd
 
-pushd ${SRCROOT}/${QUDA_SRC}
+pushd ${SRCROOT}/${PKG}
 
 if [[ ! -d $SRCROOT ]]; then
     mkdir $SRCROOT
@@ -22,17 +25,17 @@ fi
 
 pushd ${BUILDROOT}
 
-if [ -d ./build_${QUDA} ];
+if [ -d ./build_${PKG} ];
 then
-  rm -rf ./build_${QUDA}
+  rm -rf ./build_${PKG}
 fi
 
-mkdir  ./build_${QUDA}
+mkdir  ./build_${PKG}
 cd ./build_${QUDA}
 
 export QUDA_GPU_ARCH=${TARGET_GPU}
 
-cmake ${SRCROOT}/${QUDA_SRC} \
+cmake ${SRCROOT}/${PKG} \
         -G "Unix Makefiles" \
 	      -DQUDA_TARGET_TYPE="HIP" \
 			  -DQUDA_GPU_ARCH=${TARGET_GPU} \
@@ -81,5 +84,12 @@ cmake ${SRCROOT}/${QUDA_SRC} \
 
 cmake --build . -j 32  -v
 cmake --install .
+
+if [ $? -eq 0 ]; then
+    echo "successful installation"
+    echo "${PKG} : ${COMMIT} ($(date))" > ${INSTALLROOT}/${PKG}/GIT_info.txt
+else
+    echo "failed installation"
+fi
 
 popd
