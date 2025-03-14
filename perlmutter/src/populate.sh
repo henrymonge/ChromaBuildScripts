@@ -15,5 +15,5 @@ cd ../
 
 git clone git@github.com:RJHudspith/GLU.git
 
-#git clone -b release/14.x https://github.com/llvm/llvm-project
+git clone --recursive -b qedm https://github.com/callat-qcd/lalibe.git
 

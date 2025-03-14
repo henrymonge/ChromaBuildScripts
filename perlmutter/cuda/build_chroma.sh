@@ -14,6 +14,7 @@ cmake ${SRCROOT}/chroma -DCMAKE_CXX_COMPILER=mpicxx \
 		-DCMAKE_BUILD_TYPE=RelWithDebInfo \
 		-DQDPXX_DIR=${INSTALLROOT}/qdpxx/lib/cmake/QDPXX \
 		-DQMP_DIR=${INSTALLROOT}/qmp/lib/cmake/QMP \
+                -DCMAKE_CXX_FLAGS="-DH5_USE_18_API -O3" \
 	  	-DChroma_ENABLE_QUDA=ON \
 		-DChroma_ENABLE_OPENMP=ON \
 		-DQUDA_DIR=${INSTALLROOT}/quda/lib/cmake/QUDA \

@@ -9,7 +9,7 @@ fi
 mkdir  ./build_qmp
 cd ./build_qmp
 
-cmake ${SRCROOT}/qmp -DQMP_MPI=ON \
+cmake ${SRCROOT}/qmp -G Ninja -DQMP_MPI=ON \
 	-DCMAKE_BUILD_TYPE=RelWithDebInfo \
 	-DCMAKE_C_COMPILER=mpicc \
 	-DCMAKE_INSTALL_PREFIX=${INSTALLROOT}/qmp  \
