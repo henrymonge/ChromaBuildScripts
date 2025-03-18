@@ -14,6 +14,9 @@ git checkout 3ae4e0d
 cd ../
 
 git clone git@github.com:RJHudspith/GLU.git
+cd GLU
+autoreconf -f -i
+cd ../
 
 git clone --recursive -b qedm https://github.com/callat-qcd/lalibe.git
 
