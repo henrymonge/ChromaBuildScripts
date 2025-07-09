@@ -30,8 +30,9 @@ pushd devel_kokkos/other_libs
 git clone git@github.com:JeffersonLab/wilsonmg.git
 popd
 
-pushd devel_kokkos/lib/kokkos_src
-git clone  --branch 4.4.00 git@github.com:kokkos/kokkos.git
+pushd devel_kokkos/lib
+rm -rf kokkos_src
+git clone  --branch 4.4.00 git@github.com:kokkos/kokkos.git kokkos_src
 popd
 
 popd
